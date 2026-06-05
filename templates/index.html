@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregator Loker Depok</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; padding: 20px; max-width: 800px; margin: auto; }
+        h1 { text-align: center; color: #1a73e8; }
+        .kartu-loker { background: white; padding: 20px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .kartu-loker h2 { margin-top: 0; color: #333; font-size: 22px; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px;}
+        .info { margin: 8px 0; color: #555; }
+        .label { font-weight: bold; color: #222; display: inline-block; width: 100px;}
+        .sumber { display: inline-block; margin-top: 15px; padding: 5px 10px; background-color: #e8f0fe; color: #1a73e8; border-radius: 5px; font-size: 14px; font-weight: bold;}
+    </style>
+</head>
+<body>
+
+    <h1>Lowongan Kerja Depok</h1>
+
+    {% for item in loker %}
+    <div class="kartu-loker">
+        <h2>{{ item.nama_perusahaan }}</h2>
+        <div class="info"><span class="label">Job Desk</span>: {{ item.job_desk }}</div>
+        <div class="info"><span class="label">Alamat</span>: {{ item.alamat }}</div>
+        <div class="info"><span class="label">Gaji</span>: {{ item.gaji }}</div>
+        <div class="info"><span class="label">Kontak</span>: {{ item.kontak }}</div>
+        <div class="sumber">
+            <a href="{{ item.sumber }}" target="_blank" style="text-decoration: none; color: #1a73e8;">
+                Buka Halaman Lowongan ↗
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <p style="text-align: center;">Belum ada data lowongan kerja.</p>
+    {% endfor %}
+
+    <!-- Navigasi Pagination -->
+    <div class="pagination" style="text-align: center; margin: 20px 0;">
+        {% if page > 1 %}
+            <a href="?page={{ page - 1 }}">« Sebelumnya</a>
+        {% endif %}
+
+        <span>Halaman {{ page }} dari {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+            <a href="?page={{ page + 1 }}">Selanjutnya »</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

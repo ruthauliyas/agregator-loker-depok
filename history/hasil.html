@@ -1,0 +1,2286 @@
+<html lang="id"><style>/* !Email Widget */
+.ch-sonic-email-box-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.ch-sonic-email-widget {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  column-gap: 10px;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.ch-sonic-email-widget-gen {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 108px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #C04E00;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.ch-sonic-email-widget-close {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0px;
+  top: 0px;
+  transform: translate(50%, -50%);
+  background: white;
+  z-index: 2;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 50%;
+}
+
+.ch-sonic-email-widget-close svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.ch-sonic-email-widget-close svg path {
+  stroke: #C04E00 !important;
+}
+
+.ch-sonic-email-widget:hover .ch-sonic-email-widget-close {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ch-sonic-email-widget:has(.chromane-sonic-active) .ch-sonic-email-widget-close {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+.ch-sonic-email-widget-gen:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ch-sonic-email-widget-gen-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C04E00;
+}
+.ch-sonic-email-widget-gen-icon + span:not(:empty) {
+  margin-left: 8px;
+}
+
+.ch-sonic-email-widget-gen-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ch-sonic-email-widget-gen span {
+  color: #C04E00;
+  font-weight: 500;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: "Inter";
+  user-select: none;
+}
+
+.ch-sonic-email-widget-box {
+  flex: 0 1 auto;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.ch-sonic-email-widget-box span {
+  position: absolute;
+  top: 4px;
+  left: -1px;
+  width: fit-content;
+  padding: 0px 6px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e5e7eb;
+  border-radius: 6px;
+  border-bottom-left-radius: 0px;
+  font-family: Inter;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.ch-sonic-email-widget-textarea {
+  width: 100%;
+  border: 0px;
+  border-bottom: 1px solid #d1d5db;
+  outline: none !important;
+  resize: none;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  font-family: Inter;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 19px;
+  padding: 6px 0px;
+  color: #1f2937;
+  text-indent: 114px;
+  word-break: break-all;
+}
+
+.ch-sonic-email-widget-textarea > * {
+  text-indent: 0px !important;
+}
+
+.ch-sonic-email-widget-textarea[contenteditable][aria-placeholder]:empty:before {
+  content: attr(aria-placeholder);
+  position: absolute;
+  background-color: transparent;
+  color: rgb(75 85 99);
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 400;
+  cursor: text;
+  text-indent: 0px;
+  max-width: var(--cwidth);
+  visibility: hidden;
+  visibility: var(--cvis);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* !Select mood */
+
+/*! Mood Component */
+.ch-sonic-email-widget-mood {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  margin-top: 10px;
+  background: #e5e7eb;
+  padding: 4px 6px 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 17px;
+  box-sizing: border-box;
+  color: #1f2937;
+}
+.ch-sonic-email-widget-mood > span {
+  font-family: "Inter";
+  font-weight: 600;
+}
+
+.ch-sonic-mood-select {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  column-gap: 3px;
+  padding: 0px 4px;
+  cursor: pointer;
+  font-family: "Inter";
+  font-weight: 400;
+  height: 28px;
+  position: relative;
+  z-index: 2;
+  user-select: none;
+}
+
+.ch-sonic-email-widget-mood.chips {
+  width: 100%;
+  align-items: baseline;
+  padding: 6px;
+  background: transparent;
+  margin-top: 0px;
+}
+
+.ch-sonic-chip-default {
+  overflow-x: scroll;
+  padding-bottom: 6px;
+}
+
+/* *Scrollbar */
+.ch-sonic-chip-default::-webkit-scrollbar {
+  width: 5px;
+  height: 4px;
+}
+.ch-sonic-chip-default::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ch-sonic-chip-default::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.ch-sonic-mood-select > svg {
+  margin: -3px;
+  width: 19px;
+  height: 19px;
+  fill: black;
+  transition: all 0.3s ease;
+}
+
+.ch-sonic-mood-select-items {
+  position: absolute;
+  background: white;
+  left: 0px;
+  top: 32px;
+  z-index: 999999;
+  min-width: calc(100% + 6px);
+  padding: 7px 4px;
+  display: flex;
+  flex-direction: column;
+  color: #1f2937;
+  font-size: inherit;
+  row-gap: 4px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  font-family: "Inter";
+  cursor: default;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.ch-sonic-mood-select-item {
+  padding: 3px 2px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  width: 100%;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ch-sonic-mood-select-item:hover {
+  background: #e5e7eb;
+}
+
+.ch-sonic-mood-select.chromane-sonic-active .ch-sonic-mood-select-items {
+  visibility: visible;
+  opacity: 1;
+}
+.ch-sonic-mood-select.chromane-sonic-active > svg {
+  transform: rotate(180deg);
+}
+.ch-sonic-email-widget-mood.emotion {
+  background: transparent;
+  padding: 0px;
+  margin-top: 12px;
+}
+
+/*!Chip Emotions Component-------------------------------------------------------------  */
+.ch-sonic-chip-emotions,
+.ch-sonic-chip-default {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.ch-sonic-chip-default {
+  padding: 3px 0px 3px 0px;
+}
+
+.ch-sonic-chip-emotions-chip,
+.ch-sonic-chip-default-chip {
+  background: #e5e7eb;
+  border-radius: 6px;
+  padding: 2px 4px;
+  color: #1f2937;
+  font-family: Inter;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.ch-sonic-chip-default-chip {
+  white-space: nowrap;
+  padding: 4px 6px;
+}
+
+.ch-sonic-chip-emotions-chip.chromane-sonic-active,
+.ch-sonic-chip-default-chip.chromane-sonic-active {
+  background: #FBE1C5;
+}
+
+/* !WIDGET DARK MODE STYLESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ----------------------------------------------------------*/
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-default::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-emotions-chip,
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-default-chip {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-emotions-chip.chromane-sonic-active,
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-default-chip.chromane-sonic-active {
+  background: #6b7280;
+}
+
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-box span {
+  background: #34383f;
+  color: #e5e7eb;
+}
+
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-textarea {
+  color: #e5e7eb;
+  border-bottom-color: #34383f;
+}
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-close {
+  background: #1f2937;
+}
+
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-textarea[contenteditable][aria-placeholder]:empty:before {
+  color: #4b5563;
+}
+
+.ch-sonic-email-widget-mood.dark {
+  background: #34383f;
+  color: #e5e7eb;
+}
+
+.ch-sonic-email-widget-mood.dark.chips {
+  background: transparent;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select {
+  background: #4b5563;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select-input {
+  color: #e5e7eb;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select-items {
+  background: #34383f;
+  color: #e5e7eb;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select-item:hover {
+  background: #4b5563;
+}
+
+/* !SIZE MODIFIERS------------------------------------------------------------------------------------------------------------ */
+.ch-sonic-email-widget.s-small {
+  font-size: 12px;
+  line-height: 14px;
+  column-gap: 4px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-gen {
+  flex: 0 0 80px;
+  width: 80px;
+  font-size: 11px;
+  line-height: 14px;
+}
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-gen-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-gen-icon svg {
+  width: 9px;
+  height: 9px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-close {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-box {
+  flex: 0 0 auto;
+  width: calc(100% - 85px);
+  max-width: calc(100% - 85px);
+}
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-box span {
+  height: 19px;
+  top: 3px;
+  padding: 0px 6px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-textarea {
+  font-size: 12px;
+  line-height: 18px;
+  text-indent: 112px;
+  padding: 3px 0px;
+}
+
+.ch-sonic-email-widget-mood.s-small {
+  font-size: 11px;
+  line-height: 14px;
+  margin-top: 5px;
+  padding: 6px;
+}
+
+.ch-sonic-email-widget-mood.s-small.chips {
+  padding: 3px 6px 0px 6px;
+  margin-top: 0px;
+}
+
+.ch-sonic-email-widget-mood.s-small .ch-sonic-mood-select {
+  height: 20px;
+}
+.ch-sonic-email-widget-mood.s-small .ch-sonic-mood-select > svg {
+  width: 16px;
+  height: 16px;
+}
+.ch-sonic-email-widget-mood.s-small .ch-sonic-chip-default-chip {
+  padding: 3px 5px;
+  font-size: 10px;
+}
+
+/* !MAIL TYPE MODIFIERS------------------------------------------------------------------- */
+
+/* ?Default-size */
+.ch-sonic-email-widget.reply .ch-sonic-email-widget-textarea {
+  text-indent: 88px;
+}
+
+.ch-sonic-email-widget.message .ch-sonic-email-widget-textarea {
+  text-indent: 129px;
+}
+.ch-sonic-email-widget.short .ch-sonic-email-widget-textarea {
+  text-indent: 62px;
+}
+
+/* ?Smaill-size */
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-textarea {
+  text-indent: 112px;
+}
+ /* !Widget BTN */
+#sonic-chromane-btn-widget {
+  width: fit-content;
+  padding: 0px 6px;
+  height: 36px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  justify-content: center;
+  z-index: 99999999999999999999999;
+  bottom: 30px;
+  left: 30px;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  visibility: visible;
+  opacity: 0.1;
+  cursor: pointer;
+  transition: visibility 0.2s ease, opacity 0.2s ease;
+}
+
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-img {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-text {
+  user-select: none;
+  font-family: "Inter", sans-serif !important;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #f4f4f6;
+}
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-close {
+  position: absolute;
+  flex: 0 0 15px;
+  width: 15px !important;
+  height: 15px !important;
+  top: 0px;
+  right: 0px;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  background: #ff76df;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+#sonic-chromane-btn-widget:hover {
+  opacity: 1;
+}
+#sonic-chromane-btn-widget:hover .sonic-chromane-btn-widget-close {
+  visibility: visible;
+  opacity: 1;
+}
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-close svg {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+#sonic-chromane-btn-widget.sonic-chromane-btn-widget-hide {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* !BUTTON GENERETIONS MANAGE */
+
+.ch-sonic-gen-man {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+}
+
+button.ch-sonic-gen-man-btn {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: #C04E00;
+  border-radius: 50%;
+  border: none !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  border: none !important;
+  outline: none;
+}
+
+button.ch-sonic-gen-man-stop {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translateY(-50%);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active button.ch-sonic-gen-man-stop {
+  transform: translate(-120%, -50%);
+}
+button.ch-sonic-gen-man-stop svg.ch-sonic-gen-man-icon {
+  height: 22px !important;
+  width: 22px !important;
+}
+
+.ch-sonic-gen-man-rewrite {
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+.ch-sonic-gen-man-rewrite .ch-sonic-gen-man-icon {
+  width: 14px !important;
+  height: 14px !important;
+  flex: 0 0 14px;
+}
+.ch-sonic-gen-man-rewrite .ch-sonic-gen-man-icon * {
+  stroke: white !important;
+}
+
+svg.ch-sonic-gen-man-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  height: 100% !important;
+  width: 100% !important;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite svg.ch-sonic-gen-man-loader {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite .ch-sonic-gen-man-icon {
+  opacity: 0;
+  visibility: hidden !important;
+}
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite {
+  background: transparent !important;
+  cursor: default;
+  box-shadow: none !important;
+}
+
+.ch-sonic-gen-man-ttip {
+  color: white;
+  background: rgb(99 102 241);
+  white-space: nowrap;
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 99999999;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-family: "Satoshi";
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 10px;
+  color: white;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.ch-sonic-gen-man-ttip svg {
+  width: 11px;
+  height: 5px;
+  position: absolute;
+  bottom: 1px;
+  transform: translate(-50%, 100%) rotate(180deg);
+  left: 50%;
+}
+
+.ch-sonic-gen-man-ttip.chromane-sonic-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite .ch-sonic-gen-man-ttip {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/*! CHROMANE SONIC LOGO BTN */
+.ch-sonic-logo-btn {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0px;
+  cursor: pointer;
+  border: none !important;
+  outline: none !important;
+}
+
+.ch-sonic-logo-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* !NOTIFICATION */
+.chat-sonic-chromane-notification-wrap {
+  height: fit-content;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  row-gap: 10px;
+  bottom: 30px;
+  right: 0px;
+  width: 400px;
+  background: transparent;
+  z-index: 999999999;
+  pointer-events: none;
+}
+
+.chat-sonic-chromane-notification {
+  margin-right: 20px;
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  background-color: #111827;
+  border-radius: 12px;
+  padding: 10px 16px;
+  z-index: 99999999999;
+  transform: translateX(0px);
+  transition: all 0.3s ease;
+  width: fit-content;
+  height: fit-content;
+}
+
+.chat-sonic-chromane-notification span {
+  padding: 0px !important;
+  margin: 0px !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-family: "Satoshi" !important;
+  font-size: 13px !important;
+  line-height: 20px !important;
+  letter-spacing: 0.2px;
+}
+
+.chat-sonic-chromane-notification svg {
+  width: 24px !important;
+  height: 24px !important;
+  flex: 0 0 24px;
+}
+
+.chat-sonic-chromane-notification.chromane-hide {
+  transform: translateX(calc(100% + 20px));
+}
+
+/* !Chromane More btn */
+.ch-sonic-ad-more-btn {
+  height: 35px;
+  color: #C04E00;
+  padding: 10px 20px 10px 10px;
+  border-radius: 6px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  background: transparent;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #C04E00 !important;
+  outline: none !important;
+  transition: all 0.2s ease;
+}
+
+.ch-sonic-ad-more-btn-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C04E00;
+}
+
+.ch-sonic-ad-more-btn-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ch-sonic-ad-more-btn:hover {
+  background: rgba(26, 115, 232, 0.1);
+}
+
+/* !CUSTOM TOOLTIP */
+
+.ch-sonic-tooltip {
+  color: white;
+  background: rgb(99 102 241);
+  white-space: nowrap;
+  position: fixed;
+  top: 194px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 99999999;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-family: "Satoshi";
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 10px;
+  color: white;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.3s ease;
+  animation: tooltipkeys 0.5s 1;
+}
+
+.ch-sonic-tooltip svg {
+  position: absolute;
+  bottom: 1px;
+  transform: translate(-50%, 100%) rotate(180deg);
+  left: 50%;
+  width: 11px !important;
+  height: 5px !important;
+}
+
+@keyframes tooltipkeys {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+ /* !SONIC Iframe */
+.ch-sonic-iframe {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 670px;
+  max-height: calc(100vh - 30px);
+  z-index: 99999999999999;
+  visibility: visible;
+  opacity: 1;
+  border: 1px solid #e5e7eb;
+  min-height: 48px;
+  box-shadow: rgb(17 17 26 / 20%) 0px 4px 16px, rgb(17 17 26 / 20%) 0px 8px 24px, rgb(17 17 26 / 20%) 0px 16px 56px;
+  border-radius: 12px;
+  background: white;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s ease;
+}
+
+.ch-sonic-iframe.chromane-hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transform: translate(-50%, 20%) scale(0) !important;
+}
+
+html.chromane-sonic-dark .ch-sonic-iframe {
+  border-color: #1f2937;
+}
+
+/* !Iframe Command */
+#chat-sonic-command-iframe,
+#chromane-sonic-google-home-iframe {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 670px;
+  max-height: calc(100vh - 30px);
+  z-index: 99999999999999;
+  visibility: visible;
+  opacity: 1;
+  border: 1px solid #e5e7eb;
+  min-height: 48px;
+  box-shadow: rgb(17 17 26 / 20%) 0px 4px 16px, rgb(17 17 26 / 20%) 0px 8px 24px, rgb(17 17 26 / 20%) 0px 16px 56px;
+  border-radius: 12px;
+  background: white;
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s ease;
+}
+
+#chat-sonic-command-iframe.chromane-hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transform: translate(-50%, 20%) scale(0) !important;
+}
+
+#chat-sonic-command-iframe.chat-sonic-unauth {
+  width: 489px;
+}
+
+html.chromane-sonic-dark #chat-sonic-command-iframe {
+  border-color: #1f2937;
+}
+
+.chat-sonic-command-iframe-hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transform: translate(-50%, 20%) scale(0) !important;
+}
+
+/* !Invisible paste input */
+.chromane-sonic-input-invisible {
+  position: fixed;
+  /* left: -1000000px; */
+  left: 100px;
+  top: 100px;
+  z-index: 999999999999999999999;
+}
+
+/* !Social IFrame */
+#ch-sonic-social-iframe {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 560px;
+  height: 306px;
+  max-height: calc(100vh - 30px);
+  z-index: 99999999999999;
+  visibility: visible;
+  opacity: 1;
+  border: 1px solid #e5e7eb;
+  box-shadow: rgb(17 17 26 / 20%) 0px 4px 16px, rgb(17 17 26 / 20%) 0px 8px 24px, rgb(17 17 26 / 20%) 0px 16px 56px;
+  border-radius: 12px;
+  background: white;
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s ease, height 0.1s;
+  background: rgb(17 24 39);
+}
+
+#ch-sonic-social-iframe.chromane-hide {
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, 20%) scale(0);
+}
+
+html.chromane-sonic-dark #ch-sonic-social-iframe {
+  border-color: #1f2937;
+}
+
+/* !Summarise Iframe */
+#chromane-sonic-summarise-iframe {
+  position: fixed;
+  bottom: 0px;
+  right: 30px;
+  width: 504px;
+  height: 444px;
+  transform: translate(0px, 0px);
+  z-index: 99999999;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: -8px -11px 68px rgba(0, 0, 0, 0.25);
+}
+
+#chromane-sonic-summarise-iframe.chromane-hide {
+  transform: translate(0px, calc(100% + 20px));
+}
+
+/* !Summarise widget open styles*/
+body.chromane-sonic-summarise-iframe-open .ch-sonic-email-widget-gen {
+  opacity: 0.6 !important;
+  cursor: default;
+}
+
+body.chromane-sonic-summarise-iframe-open .ch-sonic-logo-btn img {
+  filter: grayscale(100%);
+  opacity: 0.5 !important;
+}
+body.chromane-sonic-summarise-iframe-open .ch-sonic-logo-btn {
+  cursor: default;
+}
+body.chromane-sonic-summarise-iframe-open .ch-sonic-logo-btn:hover {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* !Multi Iframe */
+
+.ch-sonic-multi-iframe-overlay.chromane-hide {
+  visibility: hidden;
+  opacity: 0;
+}
+.ch-sonic-multi-iframe-overlay {
+  position: fixed;
+  z-index: 9999999;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  background: #111827;
+  visibility: visible;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+/* !Summarise thread iframe  */
+#chromane-sonic-sumtext-iframe[data-page="summarize"] {
+  height: 300px;
+}
+#chromane-sonic-sumtext-iframe[data-page="word_count"] {
+  height: 175px;
+  width: 450px;
+}
+
+/* !Styles When words expired  */
+/* search */
+
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-search-iframe:not(.ch-sonic-search-iframe-manual) {
+  height: 495px !important;
+}
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-search-iframe iframe,
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-youtube-cmd-iframe {
+  border-color: #e5e7eb !important;
+}
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-search-iframe.ch-sonic-search-iframe-close {
+  background: transparent;
+}
+
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-youtube-cmd-iframe {
+  border-radius: 12px;
+}
+
+/* command and other */
+html:has(#chromane-theme-root.ch-words-expired) .ch-sonic-iframe,
+html:has(#chromane-theme-root.ch-words-expired) #chromane-sonic-summarise-iframe,
+html:has(#chromane-theme-root.ch-words-expired) #chat-sonic-command-iframe {
+  width: 400px !important;
+  height: 495px !important;
+  border-color: transparent !important;
+}
+/* !Styles When user unauth  */
+
+html:has(#chromane-theme-root.ch-sonic-unauth) .ch-sonic-iframe {
+  height: 630px !important;
+  width: 489px !important;
+}
+
+html:has(#chromane-theme-root.ch-sonic-unauth) #chat-sonic-command-iframe {
+  height: 630px !important;
+}
+</style><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregator Loker Depok</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; padding: 20px; max-width: 800px; margin: auto; }
+        h1 { text-align: center; color: #1a73e8; }
+        .kartu-loker { background: white; padding: 20px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .kartu-loker h2 { margin-top: 0; color: #333; font-size: 22px; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px;}
+        .info { margin: 8px 0; color: #555; }
+        .label { font-weight: bold; color: #222; display: inline-block; width: 100px;}
+        .sumber { display: inline-block; margin-top: 15px; padding: 5px 10px; background-color: #e8f0fe; color: #1a73e8; border-radius: 5px; font-size: 14px; font-weight: bold;}
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1299.0" data-gr-ext-installed="">
+
+    <h1>Lowongan Kerja Depok (SMA/SMK)</h1>
+
+    
+    <div class="kartu-loker">
+        <h2>Sekata Grup</h2>
+        <div class="info"><span class="label">Job Desk</span>: Budget Planner</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Gagal memuat alamat lengkap)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via web Loker.id</div>
+        <div class="sumber">Sumber: /akuntansi-keuangan/akuntansi-finansial/budget-planner-sekata-grup-depok.html</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Sekata Grup</h2>
+        <div class="info"><span class="label">Job Desk</span>: Production Manager</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Gagal memuat alamat lengkap)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via web Loker.id</div>
+        <div class="sumber">Sumber: /hospitality-travel/event-mice/production-manager-sekata-grup-depok.html</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>CV Argani Mandiri Pratama</h2>
+        <div class="info"><span class="label">Job Desk</span>: Teknisi CCTV</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Gagal memuat alamat lengkap)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via web Loker.id</div>
+        <div class="sumber">Sumber: /teknik/elektro/teknisi-cctv-cv-argani-mandiri-pratama-depok.html</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>PT GT PRO RAYA INDONESIA</h2>
+        <div class="info"><span class="label">Job Desk</span>: Senior Procurement</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Gagal memuat alamat lengkap)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via web Loker.id</div>
+        <div class="sumber">Sumber: /transportation-logistics/purchasing-pembelian/senior-procurement-pt-gt-pro-raya-indonesia-depok.html</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Lembaga PUSAKA INDONESIA</h2>
+        <div class="info"><span class="label">Job Desk</span>: Sales Marketing Event Organizer di Depok</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Gagal memuat alamat lengkap)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via web Loker.id</div>
+        <div class="sumber">Sumber: /penjualan/konsultan-penjualan/sales-marketing-event-organizer-di-depok-lembaga-pusaka-indonesia-depok-2.html</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Yamaha Sumber mas motor</h2>
+        <div class="info"><span class="label">Job Desk</span>: Digital Marketing Specialist</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Yamaha Sumber Mas Motor Cab Gandul</h2>
+        <div class="info"><span class="label">Job Desk</span>: Sales Marketing</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Sekata Grup</h2>
+        <div class="info"><span class="label">Job Desk</span>: Production Support</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Sekata Grup</h2>
+        <div class="info"><span class="label">Job Desk</span>: Editor Video</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Sekata Grup</h2>
+        <div class="info"><span class="label">Job Desk</span>: Project Manager</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Sekata Grup</h2>
+        <div class="info"><span class="label">Job Desk</span>: Budget Planner</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Sekata Grup</h2>
+        <div class="info"><span class="label">Job Desk</span>: Production Manager</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>CV Argani Mandiri Pratama</h2>
+        <div class="info"><span class="label">Job Desk</span>: Teknisi CCTV</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>PT GT PRO RAYA INDONESIA</h2>
+        <div class="info"><span class="label">Job Desk</span>: Senior Procurement</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Lembaga PUSAKA INDONESIA</h2>
+        <div class="info"><span class="label">Job Desk</span>: Sales Marketing Event Organizer di Depok</div>
+        <div class="info"><span class="label">Alamat</span>: Depok (Loker.id)</div>
+        <div class="info"><span class="label">Gaji</span>: Depok</div>
+        <div class="info"><span class="label">Kontak</span>: Lamar via Loker.id</div>
+        <div class="sumber">Sumber: https://www.loker.id/cari-lowongan-kerja?lokasi=depok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Ramirez Inc</h2>
+        <div class="info"><span class="label">Job Desk</span>: Product manager</div>
+        <div class="info"><span class="label">Alamat</span>: North Jamieview, AP</div>
+        <div class="info"><span class="label">Gaji</span>: Gaji tidak dicantumkan</div>
+        <div class="info"><span class="label">Kontak</span>: Hubungi via website</div>
+        <div class="sumber">Sumber: https://realpython.github.io/fake-jobs/</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Savage-Bradley</h2>
+        <div class="info"><span class="label">Job Desk</span>: Fitness centre manager</div>
+        <div class="info"><span class="label">Alamat</span>: East Seanview, AP</div>
+        <div class="info"><span class="label">Gaji</span>: Gaji tidak dicantumkan</div>
+        <div class="info"><span class="label">Kontak</span>: Hubungi via website</div>
+        <div class="sumber">Sumber: https://realpython.github.io/fake-jobs/</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Jackson, Chambers and Levy</h2>
+        <div class="info"><span class="label">Job Desk</span>: Legal executive</div>
+        <div class="info"><span class="label">Alamat</span>: Port Ericaburgh, AA</div>
+        <div class="info"><span class="label">Gaji</span>: Gaji tidak dicantumkan</div>
+        <div class="info"><span class="label">Kontak</span>: Hubungi via website</div>
+        <div class="sumber">Sumber: https://realpython.github.io/fake-jobs/</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Vasquez-Davidson</h2>
+        <div class="info"><span class="label">Job Desk</span>: Energy engineer</div>
+        <div class="info"><span class="label">Alamat</span>: Christopherville, AA</div>
+        <div class="info"><span class="label">Gaji</span>: Gaji tidak dicantumkan</div>
+        <div class="info"><span class="label">Kontak</span>: Hubungi via website</div>
+        <div class="sumber">Sumber: https://realpython.github.io/fake-jobs/</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Payne, Roberts and Davis</h2>
+        <div class="info"><span class="label">Job Desk</span>: Senior Python Developer</div>
+        <div class="info"><span class="label">Alamat</span>: Stewartbury, AA</div>
+        <div class="info"><span class="label">Gaji</span>: Gaji tidak dicantumkan</div>
+        <div class="info"><span class="label">Kontak</span>: Hubungi via website</div>
+        <div class="sumber">Sumber: https://realpython.github.io/fake-jobs/</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>Toko Kue Enak Depok</h2>
+        <div class="info"><span class="label">Job Desk</span>: Kasir / Pramuniaga</div>
+        <div class="info"><span class="label">Alamat</span>: Jl. Kejayaan, Sukmajaya, Depok</div>
+        <div class="info"><span class="label">Gaji</span>: Rp 2.500.000</div>
+        <div class="info"><span class="label">Kontak</span>: tokokue@email.com</div>
+        <div class="sumber">Sumber: Instagram @infolokerdepok</div>
+    </div>
+    
+    <div class="kartu-loker">
+        <h2>PT Maju Mundur Sejahtera</h2>
+        <div class="info"><span class="label">Job Desk</span>: Staff Gudang (Cek barang masuk &amp; keluar)</div>
+        <div class="info"><span class="label">Alamat</span>: Jl. Margonda Raya No. 12, Depok</div>
+        <div class="info"><span class="label">Gaji</span>: Rp 3.500.000 - Rp 4.000.000</div>
+        <div class="info"><span class="label">Kontak</span>: 0812-xxxx-xxxx (WA)</div>
+        <div class="sumber">Sumber: Glints</div>
+    </div>
+    
+
+
+<div id="chromane-theme-root" class="chromane-sonic-dark" style="display: none;"></div></body><style>/* !Email Widget */
+.ch-sonic-email-box-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.ch-sonic-email-widget {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  column-gap: 10px;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.ch-sonic-email-widget-gen {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 108px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #C04E00;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.ch-sonic-email-widget-close {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0px;
+  top: 0px;
+  transform: translate(50%, -50%);
+  background: white;
+  z-index: 2;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 50%;
+}
+
+.ch-sonic-email-widget-close svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.ch-sonic-email-widget-close svg path {
+  stroke: #C04E00 !important;
+}
+
+.ch-sonic-email-widget:hover .ch-sonic-email-widget-close {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ch-sonic-email-widget:has(.chromane-sonic-active) .ch-sonic-email-widget-close {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+.ch-sonic-email-widget-gen:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ch-sonic-email-widget-gen-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C04E00;
+}
+.ch-sonic-email-widget-gen-icon + span:not(:empty) {
+  margin-left: 8px;
+}
+
+.ch-sonic-email-widget-gen-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ch-sonic-email-widget-gen span {
+  color: #C04E00;
+  font-weight: 500;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: "Inter";
+  user-select: none;
+}
+
+.ch-sonic-email-widget-box {
+  flex: 0 1 auto;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.ch-sonic-email-widget-box span {
+  position: absolute;
+  top: 4px;
+  left: -1px;
+  width: fit-content;
+  padding: 0px 6px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e5e7eb;
+  border-radius: 6px;
+  border-bottom-left-radius: 0px;
+  font-family: Inter;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.ch-sonic-email-widget-textarea {
+  width: 100%;
+  border: 0px;
+  border-bottom: 1px solid #d1d5db;
+  outline: none !important;
+  resize: none;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  font-family: Inter;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 19px;
+  padding: 6px 0px;
+  color: #1f2937;
+  text-indent: 114px;
+  word-break: break-all;
+}
+
+.ch-sonic-email-widget-textarea > * {
+  text-indent: 0px !important;
+}
+
+.ch-sonic-email-widget-textarea[contenteditable][aria-placeholder]:empty:before {
+  content: attr(aria-placeholder);
+  position: absolute;
+  background-color: transparent;
+  color: rgb(75 85 99);
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 400;
+  cursor: text;
+  text-indent: 0px;
+  max-width: var(--cwidth);
+  visibility: hidden;
+  visibility: var(--cvis);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* !Select mood */
+
+/*! Mood Component */
+.ch-sonic-email-widget-mood {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  margin-top: 10px;
+  background: #e5e7eb;
+  padding: 4px 6px 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 17px;
+  box-sizing: border-box;
+  color: #1f2937;
+}
+.ch-sonic-email-widget-mood > span {
+  font-family: "Inter";
+  font-weight: 600;
+}
+
+.ch-sonic-mood-select {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  column-gap: 3px;
+  padding: 0px 4px;
+  cursor: pointer;
+  font-family: "Inter";
+  font-weight: 400;
+  height: 28px;
+  position: relative;
+  z-index: 2;
+  user-select: none;
+}
+
+.ch-sonic-email-widget-mood.chips {
+  width: 100%;
+  align-items: baseline;
+  padding: 6px;
+  background: transparent;
+  margin-top: 0px;
+}
+
+.ch-sonic-chip-default {
+  overflow-x: scroll;
+  padding-bottom: 6px;
+}
+
+/* *Scrollbar */
+.ch-sonic-chip-default::-webkit-scrollbar {
+  width: 5px;
+  height: 4px;
+}
+.ch-sonic-chip-default::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ch-sonic-chip-default::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.ch-sonic-mood-select > svg {
+  margin: -3px;
+  width: 19px;
+  height: 19px;
+  fill: black;
+  transition: all 0.3s ease;
+}
+
+.ch-sonic-mood-select-items {
+  position: absolute;
+  background: white;
+  left: 0px;
+  top: 32px;
+  z-index: 999999;
+  min-width: calc(100% + 6px);
+  padding: 7px 4px;
+  display: flex;
+  flex-direction: column;
+  color: #1f2937;
+  font-size: inherit;
+  row-gap: 4px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  font-family: "Inter";
+  cursor: default;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.ch-sonic-mood-select-item {
+  padding: 3px 2px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  width: 100%;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ch-sonic-mood-select-item:hover {
+  background: #e5e7eb;
+}
+
+.ch-sonic-mood-select.chromane-sonic-active .ch-sonic-mood-select-items {
+  visibility: visible;
+  opacity: 1;
+}
+.ch-sonic-mood-select.chromane-sonic-active > svg {
+  transform: rotate(180deg);
+}
+.ch-sonic-email-widget-mood.emotion {
+  background: transparent;
+  padding: 0px;
+  margin-top: 12px;
+}
+
+/*!Chip Emotions Component-------------------------------------------------------------  */
+.ch-sonic-chip-emotions,
+.ch-sonic-chip-default {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.ch-sonic-chip-default {
+  padding: 3px 0px 3px 0px;
+}
+
+.ch-sonic-chip-emotions-chip,
+.ch-sonic-chip-default-chip {
+  background: #e5e7eb;
+  border-radius: 6px;
+  padding: 2px 4px;
+  color: #1f2937;
+  font-family: Inter;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.ch-sonic-chip-default-chip {
+  white-space: nowrap;
+  padding: 4px 6px;
+}
+
+.ch-sonic-chip-emotions-chip.chromane-sonic-active,
+.ch-sonic-chip-default-chip.chromane-sonic-active {
+  background: #FBE1C5;
+}
+
+/* !WIDGET DARK MODE STYLESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ----------------------------------------------------------*/
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-default::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-emotions-chip,
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-default-chip {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-emotions-chip.chromane-sonic-active,
+.ch-sonic-email-widget-mood.dark .ch-sonic-chip-default-chip.chromane-sonic-active {
+  background: #6b7280;
+}
+
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-box span {
+  background: #34383f;
+  color: #e5e7eb;
+}
+
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-textarea {
+  color: #e5e7eb;
+  border-bottom-color: #34383f;
+}
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-close {
+  background: #1f2937;
+}
+
+.ch-sonic-email-widget.dark .ch-sonic-email-widget-textarea[contenteditable][aria-placeholder]:empty:before {
+  color: #4b5563;
+}
+
+.ch-sonic-email-widget-mood.dark {
+  background: #34383f;
+  color: #e5e7eb;
+}
+
+.ch-sonic-email-widget-mood.dark.chips {
+  background: transparent;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select {
+  background: #4b5563;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select-input {
+  color: #e5e7eb;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select-items {
+  background: #34383f;
+  color: #e5e7eb;
+}
+.ch-sonic-email-widget-mood.dark .ch-sonic-mood-select-item:hover {
+  background: #4b5563;
+}
+
+/* !SIZE MODIFIERS------------------------------------------------------------------------------------------------------------ */
+.ch-sonic-email-widget.s-small {
+  font-size: 12px;
+  line-height: 14px;
+  column-gap: 4px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-gen {
+  flex: 0 0 80px;
+  width: 80px;
+  font-size: 11px;
+  line-height: 14px;
+}
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-gen-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-gen-icon svg {
+  width: 9px;
+  height: 9px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-close {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-box {
+  flex: 0 0 auto;
+  width: calc(100% - 85px);
+  max-width: calc(100% - 85px);
+}
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-box span {
+  height: 19px;
+  top: 3px;
+  padding: 0px 6px;
+}
+
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-textarea {
+  font-size: 12px;
+  line-height: 18px;
+  text-indent: 112px;
+  padding: 3px 0px;
+}
+
+.ch-sonic-email-widget-mood.s-small {
+  font-size: 11px;
+  line-height: 14px;
+  margin-top: 5px;
+  padding: 6px;
+}
+
+.ch-sonic-email-widget-mood.s-small.chips {
+  padding: 3px 6px 0px 6px;
+  margin-top: 0px;
+}
+
+.ch-sonic-email-widget-mood.s-small .ch-sonic-mood-select {
+  height: 20px;
+}
+.ch-sonic-email-widget-mood.s-small .ch-sonic-mood-select > svg {
+  width: 16px;
+  height: 16px;
+}
+.ch-sonic-email-widget-mood.s-small .ch-sonic-chip-default-chip {
+  padding: 3px 5px;
+  font-size: 10px;
+}
+
+/* !MAIL TYPE MODIFIERS------------------------------------------------------------------- */
+
+/* ?Default-size */
+.ch-sonic-email-widget.reply .ch-sonic-email-widget-textarea {
+  text-indent: 88px;
+}
+
+.ch-sonic-email-widget.message .ch-sonic-email-widget-textarea {
+  text-indent: 129px;
+}
+.ch-sonic-email-widget.short .ch-sonic-email-widget-textarea {
+  text-indent: 62px;
+}
+
+/* ?Smaill-size */
+.ch-sonic-email-widget.s-small .ch-sonic-email-widget-textarea {
+  text-indent: 112px;
+}
+ /* !Widget BTN */
+#sonic-chromane-btn-widget {
+  width: fit-content;
+  padding: 0px 6px;
+  height: 36px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  justify-content: center;
+  z-index: 99999999999999999999999;
+  bottom: 30px;
+  left: 30px;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  visibility: visible;
+  opacity: 0.1;
+  cursor: pointer;
+  transition: visibility 0.2s ease, opacity 0.2s ease;
+}
+
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-img {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-text {
+  user-select: none;
+  font-family: "Inter", sans-serif !important;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #f4f4f6;
+}
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-close {
+  position: absolute;
+  flex: 0 0 15px;
+  width: 15px !important;
+  height: 15px !important;
+  top: 0px;
+  right: 0px;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  background: #ff76df;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+#sonic-chromane-btn-widget:hover {
+  opacity: 1;
+}
+#sonic-chromane-btn-widget:hover .sonic-chromane-btn-widget-close {
+  visibility: visible;
+  opacity: 1;
+}
+#sonic-chromane-btn-widget .sonic-chromane-btn-widget-close svg {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+#sonic-chromane-btn-widget.sonic-chromane-btn-widget-hide {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* !BUTTON GENERETIONS MANAGE */
+
+.ch-sonic-gen-man {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+}
+
+button.ch-sonic-gen-man-btn {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: #C04E00;
+  border-radius: 50%;
+  border: none !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  border: none !important;
+  outline: none;
+}
+
+button.ch-sonic-gen-man-stop {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translateY(-50%);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active button.ch-sonic-gen-man-stop {
+  transform: translate(-120%, -50%);
+}
+button.ch-sonic-gen-man-stop svg.ch-sonic-gen-man-icon {
+  height: 22px !important;
+  width: 22px !important;
+}
+
+.ch-sonic-gen-man-rewrite {
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+.ch-sonic-gen-man-rewrite .ch-sonic-gen-man-icon {
+  width: 14px !important;
+  height: 14px !important;
+  flex: 0 0 14px;
+}
+.ch-sonic-gen-man-rewrite .ch-sonic-gen-man-icon * {
+  stroke: white !important;
+}
+
+svg.ch-sonic-gen-man-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  height: 100% !important;
+  width: 100% !important;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite svg.ch-sonic-gen-man-loader {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite .ch-sonic-gen-man-icon {
+  opacity: 0;
+  visibility: hidden !important;
+}
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite {
+  background: transparent !important;
+  cursor: default;
+  box-shadow: none !important;
+}
+
+.ch-sonic-gen-man-ttip {
+  color: white;
+  background: rgb(99 102 241);
+  white-space: nowrap;
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 99999999;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-family: "Satoshi";
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 10px;
+  color: white;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.ch-sonic-gen-man-ttip svg {
+  width: 11px;
+  height: 5px;
+  position: absolute;
+  bottom: 1px;
+  transform: translate(-50%, 100%) rotate(180deg);
+  left: 50%;
+}
+
+.ch-sonic-gen-man-ttip.chromane-sonic-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ch-sonic-gen-man.chromane-sonic-active .ch-sonic-gen-man-rewrite .ch-sonic-gen-man-ttip {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/*! CHROMANE SONIC LOGO BTN */
+.ch-sonic-logo-btn {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0px;
+  cursor: pointer;
+  border: none !important;
+  outline: none !important;
+}
+
+.ch-sonic-logo-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* !NOTIFICATION */
+.chat-sonic-chromane-notification-wrap {
+  height: fit-content;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  row-gap: 10px;
+  bottom: 30px;
+  right: 0px;
+  width: 400px;
+  background: transparent;
+  z-index: 999999999;
+  pointer-events: none;
+}
+
+.chat-sonic-chromane-notification {
+  margin-right: 20px;
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  background-color: #111827;
+  border-radius: 12px;
+  padding: 10px 16px;
+  z-index: 99999999999;
+  transform: translateX(0px);
+  transition: all 0.3s ease;
+  width: fit-content;
+  height: fit-content;
+}
+
+.chat-sonic-chromane-notification span {
+  padding: 0px !important;
+  margin: 0px !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-family: "Satoshi" !important;
+  font-size: 13px !important;
+  line-height: 20px !important;
+  letter-spacing: 0.2px;
+}
+
+.chat-sonic-chromane-notification svg {
+  width: 24px !important;
+  height: 24px !important;
+  flex: 0 0 24px;
+}
+
+.chat-sonic-chromane-notification.chromane-hide {
+  transform: translateX(calc(100% + 20px));
+}
+
+/* !Chromane More btn */
+.ch-sonic-ad-more-btn {
+  height: 35px;
+  color: #C04E00;
+  padding: 10px 20px 10px 10px;
+  border-radius: 6px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  background: transparent;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #C04E00 !important;
+  outline: none !important;
+  transition: all 0.2s ease;
+}
+
+.ch-sonic-ad-more-btn-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C04E00;
+}
+
+.ch-sonic-ad-more-btn-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ch-sonic-ad-more-btn:hover {
+  background: rgba(26, 115, 232, 0.1);
+}
+
+/* !CUSTOM TOOLTIP */
+
+.ch-sonic-tooltip {
+  color: white;
+  background: rgb(99 102 241);
+  white-space: nowrap;
+  position: fixed;
+  top: 194px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 99999999;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-family: "Satoshi";
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 10px;
+  color: white;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.3s ease;
+  animation: tooltipkeys 0.5s 1;
+}
+
+.ch-sonic-tooltip svg {
+  position: absolute;
+  bottom: 1px;
+  transform: translate(-50%, 100%) rotate(180deg);
+  left: 50%;
+  width: 11px !important;
+  height: 5px !important;
+}
+
+@keyframes tooltipkeys {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+ /* !SONIC Iframe */
+.ch-sonic-iframe {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 670px;
+  max-height: calc(100vh - 30px);
+  z-index: 99999999999999;
+  visibility: visible;
+  opacity: 1;
+  border: 1px solid #e5e7eb;
+  min-height: 48px;
+  box-shadow: rgb(17 17 26 / 20%) 0px 4px 16px, rgb(17 17 26 / 20%) 0px 8px 24px, rgb(17 17 26 / 20%) 0px 16px 56px;
+  border-radius: 12px;
+  background: white;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s ease;
+}
+
+.ch-sonic-iframe.chromane-hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transform: translate(-50%, 20%) scale(0) !important;
+}
+
+html.chromane-sonic-dark .ch-sonic-iframe {
+  border-color: #1f2937;
+}
+
+/* !Iframe Command */
+#chat-sonic-command-iframe,
+#chromane-sonic-google-home-iframe {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 670px;
+  max-height: calc(100vh - 30px);
+  z-index: 99999999999999;
+  visibility: visible;
+  opacity: 1;
+  border: 1px solid #e5e7eb;
+  min-height: 48px;
+  box-shadow: rgb(17 17 26 / 20%) 0px 4px 16px, rgb(17 17 26 / 20%) 0px 8px 24px, rgb(17 17 26 / 20%) 0px 16px 56px;
+  border-radius: 12px;
+  background: white;
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s ease;
+}
+
+#chat-sonic-command-iframe.chromane-hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transform: translate(-50%, 20%) scale(0) !important;
+}
+
+#chat-sonic-command-iframe.chat-sonic-unauth {
+  width: 489px;
+}
+
+html.chromane-sonic-dark #chat-sonic-command-iframe {
+  border-color: #1f2937;
+}
+
+.chat-sonic-command-iframe-hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transform: translate(-50%, 20%) scale(0) !important;
+}
+
+/* !Invisible paste input */
+.chromane-sonic-input-invisible {
+  position: fixed;
+  /* left: -1000000px; */
+  left: 100px;
+  top: 100px;
+  z-index: 999999999999999999999;
+}
+
+/* !Social IFrame */
+#ch-sonic-social-iframe {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 560px;
+  height: 306px;
+  max-height: calc(100vh - 30px);
+  z-index: 99999999999999;
+  visibility: visible;
+  opacity: 1;
+  border: 1px solid #e5e7eb;
+  box-shadow: rgb(17 17 26 / 20%) 0px 4px 16px, rgb(17 17 26 / 20%) 0px 8px 24px, rgb(17 17 26 / 20%) 0px 16px 56px;
+  border-radius: 12px;
+  background: white;
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s ease, height 0.1s;
+  background: rgb(17 24 39);
+}
+
+#ch-sonic-social-iframe.chromane-hide {
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, 20%) scale(0);
+}
+
+html.chromane-sonic-dark #ch-sonic-social-iframe {
+  border-color: #1f2937;
+}
+
+/* !Summarise Iframe */
+#chromane-sonic-summarise-iframe {
+  position: fixed;
+  bottom: 0px;
+  right: 30px;
+  width: 504px;
+  height: 444px;
+  transform: translate(0px, 0px);
+  z-index: 99999999;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: -8px -11px 68px rgba(0, 0, 0, 0.25);
+}
+
+#chromane-sonic-summarise-iframe.chromane-hide {
+  transform: translate(0px, calc(100% + 20px));
+}
+
+/* !Summarise widget open styles*/
+body.chromane-sonic-summarise-iframe-open .ch-sonic-email-widget-gen {
+  opacity: 0.6 !important;
+  cursor: default;
+}
+
+body.chromane-sonic-summarise-iframe-open .ch-sonic-logo-btn img {
+  filter: grayscale(100%);
+  opacity: 0.5 !important;
+}
+body.chromane-sonic-summarise-iframe-open .ch-sonic-logo-btn {
+  cursor: default;
+}
+body.chromane-sonic-summarise-iframe-open .ch-sonic-logo-btn:hover {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* !Multi Iframe */
+
+.ch-sonic-multi-iframe-overlay.chromane-hide {
+  visibility: hidden;
+  opacity: 0;
+}
+.ch-sonic-multi-iframe-overlay {
+  position: fixed;
+  z-index: 9999999;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  background: #111827;
+  visibility: visible;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+/* !Summarise thread iframe  */
+#chromane-sonic-sumtext-iframe[data-page="summarize"] {
+  height: 300px;
+}
+#chromane-sonic-sumtext-iframe[data-page="word_count"] {
+  height: 175px;
+  width: 450px;
+}
+
+/* !Styles When words expired  */
+/* search */
+
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-search-iframe:not(.ch-sonic-search-iframe-manual) {
+  height: 495px !important;
+}
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-search-iframe iframe,
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-youtube-cmd-iframe {
+  border-color: #e5e7eb !important;
+}
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-search-iframe.ch-sonic-search-iframe-close {
+  background: transparent;
+}
+
+html:has(#chromane-theme-root.ch-words-expired) #ch-sonic-youtube-cmd-iframe {
+  border-radius: 12px;
+}
+
+/* command and other */
+html:has(#chromane-theme-root.ch-words-expired) .ch-sonic-iframe,
+html:has(#chromane-theme-root.ch-words-expired) #chromane-sonic-summarise-iframe,
+html:has(#chromane-theme-root.ch-words-expired) #chat-sonic-command-iframe {
+  width: 400px !important;
+  height: 495px !important;
+  border-color: transparent !important;
+}
+/* !Styles When user unauth  */
+
+html:has(#chromane-theme-root.ch-sonic-unauth) .ch-sonic-iframe {
+  height: 630px !important;
+  width: 489px !important;
+}
+
+html:has(#chromane-theme-root.ch-sonic-unauth) #chat-sonic-command-iframe {
+  height: 630px !important;
+}
+</style><grammarly-desktop-integration data-grammarly-shadow-root="true" style="visibility: visible !important;"></grammarly-desktop-integration><script src="chrome-extension://kchaponcodemjigejilffhfchecpgdpf/js/injected_improver.js"></script><div class="ch-sonic-improver"></div><link rel="stylesheet" type="text/css" href="chrome-extension://kchaponcodemjigejilffhfchecpgdpf/css/content_autoimprover.css"></html>
